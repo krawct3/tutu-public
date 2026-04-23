@@ -156,6 +156,14 @@ section { padding: 72px 24px; }
   display: block;
 }
 
+.school-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pink-dark);
+  text-decoration: none;
+}
+.school-link:hover { color: var(--lilac-dark); text-decoration: underline; }
+
 /* ── Brand Cards ── */
 .brand-cards {
   display: grid;
