@@ -16,7 +16,13 @@
     <li><a href="#schools">Our Schools</a></li>
     <li><a href="#owner">Owner</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="terms.html">Terms</a></li>
+    <li class="nav-dropdown" id="legal-dropdown">
+      <span class="nav-dropdown-trigger" onclick="toggleDropdown('legal-dropdown')">Legal ▾</span>
+      <div class="nav-dropdown-menu">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </li>
     <li class="portal-link"><a href="https://admin.twirlingprincess.com">Staff Portal →</a></li>
   </ul>
 </nav>
@@ -221,7 +227,6 @@
         <h4>Get in Touch</h4>
         <p>
           ✉️ <a href="mailto:sonya@tutuschool.com">sonya@tutuschool.com</a><br><br>
-          📞 415.571.8982<br><br>
           For studio-specific questions, visit your <a href="#schools">nearest school page</a>.
         </p>
       </div>
@@ -245,6 +250,14 @@
 <script>
   document.getElementById('nav-toggle').addEventListener('click', function() {
     document.getElementById('nav-links').classList.toggle('open');
+  });
+  function toggleDropdown(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    }
   });
 </script>
 </body>
