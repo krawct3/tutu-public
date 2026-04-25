@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMS Notifications — Tutu School Staff</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Twirling Princess</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#schools">Our Schools</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li class="nav-dropdown" id="legal-dropdown">
+      <span class="nav-dropdown-trigger" onclick="toggleDropdown('legal-dropdown')">Legal ▾</span>
+      <div class="nav-dropdown-menu">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </li>
+    <li class="portal-link"><a href="https://admin.twirlingprincess.com">Staff Portal →</a></li>
+  </ul>
+</nav>
+
+<div class="terms-body">
+  <h1>SMS Notifications — Tutu School Staff</h1>
+  <span class="terms-date">Staff opt-in form</span>
+
+  <div class="brand-disclosure">
+    Twirling Princess, TwirlingZ, and Dancing Hero are Tutu School franchise locations
+    owned by Sonya Krawczyk. <strong>Twirling Princess is the SMS program registrant</strong>
+    and provides centralized operational and communications support for all three locations.
+    This page is the staff opt-in form for work-related SMS notifications.
+  </div>
+
+  <form class="consent-form" action="#" method="post" novalidate>
+    <div class="form-field">
+      <label for="full_name">Full name</label>
+      <input type="text" id="full_name" name="full_name" class="form-input"
+             autocomplete="name" required>
+    </div>
+
+    <div class="form-field">
+      <label for="phone">Mobile phone</label>
+      <input type="tel" id="phone" name="phone" class="form-input"
+             placeholder="+1 555 123 4567" autocomplete="tel" required>
+    </div>
+
+    <div class="consent-block">
+      <input type="checkbox" id="consent" name="consent" class="consent-checkbox" required>
+      <label for="consent" class="consent-label">
+        <strong>I agree to receive work-related SMS</strong> (schedules, substitution
+        requests, studio closures, operational alerts) from <strong>Tutu School</strong>,
+        sent by Twirling Princess (the registrant) on behalf of Twirling Princess,
+        TwirlingZ, and Dancing Hero. I understand consent is
+        <strong>not a condition of employment</strong>. Message frequency varies.
+        Msg &amp; data rates may apply. Reply <strong>STOP</strong> to opt out,
+        <strong>HELP</strong> for help. View
+        <a href="privacy.html">Privacy Policy</a> and
+        <a href="terms.html">Terms &amp; Conditions</a>.
+      </label>
+    </div>
+
+    <button type="button" class="btn-primary">Save preferences</button>
+  </form>
+
+  <div class="info-box">
+    <h3>What you'll receive</h3>
+    <ul>
+      <li>Shift confirmations and schedule updates for your assigned studio</li>
+      <li>Substitution requests when a class needs coverage</li>
+      <li>Studio closures and urgent operational alerts</li>
+      <li>Administrative reminders (timesheets, certifications, training)</li>
+    </ul>
+  </div>
+
+  <h2>How to opt out</h2>
+  <p>
+    You can opt out at any time by replying <strong>STOP</strong> to any message you
+    receive. To get help, reply <strong>HELP</strong>, email
+    <a href="mailto:sonya@tutuschool.com">sonya@tutuschool.com</a>, or return to this
+    page and uncheck the consent box. Your preference is updated immediately and no
+    further messages will be sent.
+  </p>
+
+  <h2>Privacy</h2>
+  <p>
+    Your mobile number and consent record are used only to send work-related SMS to you.
+    No mobile information will be shared with third parties or affiliates for marketing
+    or promotional purposes. See the <a href="privacy.html">Privacy Policy</a> for full details.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about this program? Contact:<br>
+    <strong>Sonya Krawczyk</strong><br>
+    ✉️ <a href="mailto:sonya@tutuschool.com">sonya@tutuschool.com</a><br>
+    📞 415.571.8982
+  </p>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms &amp; Conditions</a>
+    <a href="https://admin.twirlingprincess.com">Staff Portal</a>
+  </div>
+  <div>© 2026 Twirling Princess · TwirlingZ · Dancing Hero · Tutu School Franchises</div>
+</footer>
+
+<script>
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+  function toggleDropdown(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+    }
+  });
+</script>
+</body>
+</html>
