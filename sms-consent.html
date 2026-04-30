@@ -37,7 +37,7 @@
     This page is the staff opt-in form for work-related SMS notifications.
   </div>
 
-  <form class="consent-form" action="#" method="post" novalidate>
+  <form id="consent-form" class="consent-form" novalidate>
     <div class="form-field">
       <label for="full_name">Full name</label>
       <input type="text" id="full_name" name="full_name" class="form-input"
@@ -65,7 +65,9 @@
       </label>
     </div>
 
-    <button type="button" class="btn-primary">Save preferences</button>
+    <button type="submit" id="consent-submit" class="btn-primary">Save preferences</button>
+    <div id="consent-status" role="status" aria-live="polite"
+         style="margin-top:14px; padding:12px 14px; border-radius:6px; display:none; font-size:14px;"></div>
   </form>
 
   <div class="info-box">
@@ -81,10 +83,9 @@
   <h2>How to opt out</h2>
   <p>
     You can opt out at any time by replying <strong>STOP</strong> to any message you
-    receive. To get help, reply <strong>HELP</strong>, email
-    <a href="mailto:sonya@tutuschool.com">sonya@tutuschool.com</a>, or return to this
-    page and uncheck the consent box. Your preference is updated immediately and no
-    further messages will be sent.
+    receive. Your preference is updated immediately and no further messages will be
+    sent. To get help, reply <strong>HELP</strong> or email
+    <a href="mailto:sonya@tutuschool.com">sonya@tutuschool.com</a>.
   </p>
 
   <h2>Privacy</h2>
@@ -126,6 +127,69 @@
       document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
     }
   });
+
+  (function() {
+    var ENDPOINT = 'https://admin.twirlingprincess.com/sms-consent';
+    var form = document.getElementById('consent-form');
+    var btn = document.getElementById('consent-submit');
+    var status = document.getElementById('consent-status');
+
+    function showStatus(msg, kind) {
+      status.textContent = msg;
+      status.style.display = 'block';
+      if (kind === 'success') {
+        status.style.background = '#e6f5ee';
+        status.style.color = '#1b7a52';
+        status.style.border = '1px solid #b9e2cd';
+      } else {
+        status.style.background = '#fbe9e9';
+        status.style.color = '#a13a3a';
+        status.style.border = '1px solid #f0c5c5';
+      }
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var consentLabel = document.querySelector('.consent-label');
+      var consentText = consentLabel
+        ? consentLabel.innerText.trim().replace(/\s+/g, ' ')
+        : '';
+
+      var payload = {
+        full_name: document.getElementById('full_name').value,
+        phone: document.getElementById('phone').value,
+        consent: document.getElementById('consent').checked,
+        consent_text: consentText
+      };
+
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+      status.style.display = 'none';
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(res) {
+        return res.json().then(function(body) { return { ok: res.ok, body: body }; });
+      }).then(function(result) {
+        if (result.ok && result.body.ok) {
+          showStatus(result.body.message || 'Your opt-in has been recorded.', 'success');
+          form.querySelectorAll('input, button').forEach(function(el) { el.disabled = true; });
+          btn.textContent = 'Saved';
+        } else {
+          showStatus(result.body.error || 'Something went wrong. Please try again.', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Save preferences';
+        }
+      }).catch(function() {
+        showStatus('Network error. Please check your connection and try again.', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Save preferences';
+      });
+    });
+  })();
 </script>
 </body>
 </html>
